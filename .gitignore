@@ -1,0 +1,14 @@
+## Editors
+.*.sw[op]
+/.idea
+
+## Ruby
+/.bundle/
+/.yardoc
+/Gemfile.lock
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
