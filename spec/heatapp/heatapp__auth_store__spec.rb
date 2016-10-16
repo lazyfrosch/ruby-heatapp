@@ -22,7 +22,6 @@ describe Heatapp::AuthStore do
         expect(@store.data['test2']).to eq(456)
       end
     end
-
   end
 
   describe '.get' do
