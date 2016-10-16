@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/lazyfrosch/ruby-heatapp.svg?branch=master)](https://travis-ci.org/lazyfrosch/ruby-heatapp)
+
 Heatapp API for Ruby
 ====================
 
