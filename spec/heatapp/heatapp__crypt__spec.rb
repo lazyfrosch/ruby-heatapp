@@ -72,4 +72,20 @@ describe Heatapp::Crypt do
         )
     end
   end
+
+  describe '.decrypt_devicetoken' do
+    it 'should decrypt' do
+      devicetoken_encrypted = '33ZTOuu10ZAJLd70IaP+phKyuPkoZdMmh6GSLv5mqHlSjthIIHqbLqjLOh3F7kNs'
+      devicetoken = 'f12a53d48420bd688b805e1e2181df63'
+      expect(subject.decrypt_devicetoken(devicetoken_encrypted, 'password')).to eq(devicetoken)
+    end
+  end
+
+  # describe '.encrypt_devicetoken' do
+  #   it 'should encrypt' do
+  #     devicetoken_encrypted = '33ZTOuu10ZAJLd70IaP+phKyuPkoZdMmh6GSLv5mqHlSjthIIHqbLqjLOh3F7kNs'
+  #     devicetoken = 'f12a53d48420bd688b805e1e2181df63'
+  #     expect(subject.encrypt_devicetoken(devicetoken, 'password')).to eq(devicetoken_encrypted)
+  #   end
+  # end
 end

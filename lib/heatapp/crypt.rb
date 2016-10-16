@@ -1,6 +1,8 @@
 require 'heatapp'
 
 require 'digest/md5'
+require 'openssl'
+require 'base64'
 
 module Heatapp
   # Providing crypto helpers to the gem
@@ -77,5 +79,39 @@ module Heatapp
       data[:request_signature] = data_signature(devicetoken, data)
       data
     end
+
+    # Decrypting a devicetoken from the challenge-response
+    #
+    # crypted and iv are expected to be Base64 encoded.
+    #
+    # IV here is predefined (seems hardcoded in original web sourcecode)
+    #
+    # Derived from Crypt.aes256decrypt (assets.min.js)
+    def self.decrypt_devicetoken(crypted, password, iv = 'D3GC5NQEFH13is04KD2tOg==')
+      iv_bin = Base64.decode64(iv)
+      crypted_bin = Base64.decode64(crypted)
+
+      decrypt = OpenSSL::Cipher::Cipher.new('aes-256-cbc')
+      decrypt.decrypt
+      decrypt.key = Digest::SHA256.digest password
+      decrypt.iv = iv_bin
+
+      decrypt.update(crypted_bin) + decrypt.final
+    end
+
+    # UNUSED, but included for reference
+    #
+    # Derived from Crypt.aes256encrypt (assets.min.js)
+    # def self.encrypt_devicetoken(devicetoken, password, iv = 'D3GC5NQEFH13is04KD2tOg==')
+    #   iv_bin = Base64.decode64(iv)
+    #
+    #   encrypt = OpenSSL::Cipher::Cipher.new('aes-256-cbc')
+    #   encrypt.encrypt
+    #   encrypt.key = Digest::SHA256.digest password
+    #   encrypt.iv = iv_bin
+    #
+    #   # Note: no newlines should be added
+    #   Base64.strict_encode64(encrypt.update(devicetoken) + encrypt.final)
+    # end
   end
 end
