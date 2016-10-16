@@ -9,7 +9,7 @@ describe Heatapp::AuthStore do
   end
 
   it 'has some data' do
-    expect(@store.data).to eq({'test' => 123})
+    expect(@store.data).to eq('test' => 123)
   end
 
   describe '.set' do
