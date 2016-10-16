@@ -57,6 +57,14 @@ module Heatapp
       @store.set(:devicetoken, devicetoken)
     end
 
+    def userid
+      @store.get(:userid)
+    end
+
+    def userid=(userid)
+      @store.set(:userid, userid)
+    end
+
     def reqcount
       @store.get(:reqcount)
     end
@@ -74,7 +82,7 @@ module Heatapp
     end
 
     def valid?
-      !(@store.get(:devicetoken).nil? || @store.get(:reqcount).nil? || @store.get(:udid).nil?)
+      !(@store.get(:devicetoken).nil? || @store.get(:userid).nil? || @store.get(:udid).nil?)
     end
   end
 end
