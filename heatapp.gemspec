@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'Heatapp is a heating control system for radiators and floor heating.'\
                        ' This gem wants to provide you a programmatic interface to the base.'
   spec.homepage      = 'https://github.com/lazyfrosch/ruby-heatapp'
-  spec.license       = 'MIT'
+  spec.license       = 'GPL-2+'
 
   spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
 
