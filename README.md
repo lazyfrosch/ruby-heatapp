@@ -30,7 +30,30 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Here is a basic usage example in a script:
+
+```ruby
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'heatapp/api'
+require 'heatapp/session'
+
+file = 'store.yaml'
+session = Heatapp::Session.new
+session.load(file) if File.exist?(file)
+
+api = Heatapp::Api.new('heatapp.localdomain', session: session)
+
+api.login('username', 'Passw0rd') unless api.logged_in?
+
+api.post_authenticated(path: '/api/systemstate', payload: { 'product': 'heatapp-server'}) do |response|
+  puts response.code
+  puts response.body
+end
+
+session.save(file)
+```
 
 ## Contributing
 
