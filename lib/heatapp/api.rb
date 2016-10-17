@@ -33,7 +33,7 @@ module Heatapp
 
     # Set some default headers for the API
     def default_headers(headers = {})
-      headers = {} unless headers
+      headers           = {} unless headers
       headers['Accept'] = 'application/json' unless headers['Accept']
       headers
     end
@@ -45,7 +45,7 @@ module Heatapp
       raise 'You should not set url, but path' if args[:url]
 
       args[:method] = :post
-      args[:url] = url(args[:path])
+      args[:url]    = url(args[:path])
       args.delete(:path)
       args[:headers] = default_headers(args[:headers])
 
@@ -56,20 +56,20 @@ module Heatapp
     #
     # Accepts a block to handle the response.
     def post_authenticated(args, &block)
-      data = args[:payload]  || {}
-      args[:payload] = Crypt.sign_request(data, session.udid, session.userid, session.devicetoken, session.reqcount_next)
+      data           = args[:payload] || {}
+      args[:payload] = Crypt.sign_request(
+        data, session.udid, session.userid, session.devicetoken, session.reqcount_next
+      )
 
       post(args, &block)
     end
 
     # Check if the user is actually logged in
     def logged_in?
-      return false unless @session.store.get(:devicetoken)
+      return false unless @session.valid?
 
       post_authenticated(path: '/api/systemstate') do |response|
-        if response.code != 200
-          raise NotAuthenticatedError, "Check returned #{response.code} - #{response.body.to_s[1..50]}"
-        end
+        raise NotAuthenticatedError, "HTTP status #{response.code}: #{response.body[1..20]}" if response.code != 200
 
         data = parse_response(response)
         raise LoginFailedError, "Not logged in: #{data['message']}" unless data['success'].equal?(true)
@@ -84,11 +84,11 @@ module Heatapp
     # Login using challenge-response mechanism
     def login(username, password, device_name = 'Heatapp for Ruby')
       challenge = request_challenge
-      data = request_response_to_challenge(username, password, device_name, challenge)
+      data      = request_response_to_challenge(username, password, device_name, challenge)
 
       @session.devicetoken = data[:devicetoken]
-      @session.userid = data[:userid]
-      @session.reqcount = nil
+      @session.userid      = data[:userid]
+      @session.reqcount    = nil
 
       @session.valid?
     rescue LoginFailedError => e
@@ -98,7 +98,9 @@ module Heatapp
 
     protected
 
+    # check for HTTP code and parse JSON from body
     def parse_response(response)
+      raise UnexpectedResponseError, 'status not 200' unless response.code == 200
       JSON.parse(response.body)
     rescue JSON::ParserError => e
       raise UnexpectedResponseError, "JSON error: #{e.message}"
@@ -107,7 +109,6 @@ module Heatapp
     # request a challenge
     def request_challenge
       post(path: '/api/user/token/challenge', payload: { udid: @session.udid }) do |response|
-        raise UnexpectedResponseError, 'status not 200 on challenge response' if response.code != 200
         challenge = parse_response(response)['devicetoken']
         raise UnexpectedResponseError, 'Does not contain devicetoken' unless challenge
         challenge
@@ -117,19 +118,18 @@ module Heatapp
     # sent a response to the challenge
     def request_response_to_challenge(username, password, device_name, challenge)
       response_payload = {
-        login: username,
+        login:      username,
         devicename: device_name,
-        token: challenge,
-        hashed: Crypt.hash_auth_token(password, challenge),
-        udid: session.udid
+        token:      challenge,
+        hashed:     Crypt.hash_auth_token(password, challenge),
+        udid:       session.udid
       }
 
-      post(path: '/api/user/token/response', payload: response_payload) do |response|
-        raise UnexpectedResponseError, 'status not 200 after challenge-response request' if response.code != 200
-        json = parse_response(response)
-        raise LoginFailedError, "Login failed: #{json['message']}" unless json['success'].equal?(true)
-        raise UnexpectedResponseError, 'Does not contain devicetoken_encrypted' unless json['devicetoken_encrypted']
-        raise UnexpectedResponseError, 'Does not contain userid' unless json['userid']
+      post(path: '/api/user/token/response', payload: response_payload) do |response, json = parse_response(response)|
+        raise LoginFailedError, "Login failed: #{json['message']}" unless json['success']
+        unless json['devicetoken_encrypted'] && json['userid']
+          raise UnexpectedResponseError, 'Does not contain devicetoken_encrypted or userid'
+        end
 
         { devicetoken: Crypt.decrypt_devicetoken(json['devicetoken_encrypted'], password), userid: json['userid'] }
       end

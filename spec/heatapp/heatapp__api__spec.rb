@@ -14,7 +14,7 @@ describe Heatapp::Api do
       )
 
     stub_request(:post, "http://#{subject.host}/api/user/token/response")
-      .with(body: "login=username&devicename=Test&token=e5a683aeea7788cbeb2b40fb0d4924c9&"\
+      .with(body: 'login=username&devicename=Test&token=e5a683aeea7788cbeb2b40fb0d4924c9&'\
                     "hashed=7c251b46cd9a69cb12cecf4407414547&udid=#{subject.session.udid}")
       .to_return(
         status: 200,
@@ -24,7 +24,7 @@ describe Heatapp::Api do
       )
 
     stub_request(:post, "http://#{subject.host}/api/user/token/response")
-      .with(body: "login=username&devicename=Test&token=5105eb3fb76282a5255fb31dd5af6968&"\
+      .with(body: 'login=username&devicename=Test&token=5105eb3fb76282a5255fb31dd5af6968&'\
                     "hashed=c7fb3e56ae8bc40b48506b46924962dd&udid=#{subject.session.udid}")
       .to_return(
         status: 200,
@@ -57,7 +57,7 @@ describe Heatapp::Api do
   describe '.post' do
     it 'should sent a proper POST request' do
       stub_request(:post, "http://#{subject.host}/test/url")
-        .with(headers: {Accept: 'application/json'})
+        .with(headers: { Accept: 'application/json' })
 
       expect { |b| subject.post(path: '/test/url', &b) }
         .to yield_with_args(RestClient::Response, RestClient::Request, Net::HTTPOK)
@@ -71,9 +71,9 @@ describe Heatapp::Api do
   describe '.logged_in?' do
     before do
       subject.session.devicetoken = 'f12a53d48420bd688b805e1e2181df63'
-      subject.session.userid = 1
-      subject.session.udid = 'b5eb3d7b-3ae1-445a-ac39-790bd8f1b8ad'
-      subject.session.reqcount = 122
+      subject.session.userid      = 1
+      subject.session.udid        = 'b5eb3d7b-3ae1-445a-ac39-790bd8f1b8ad'
+      subject.session.reqcount    = 122
     end
 
     it 'should return true with a proper response' do
@@ -114,12 +114,25 @@ describe Heatapp::Api do
   describe '.parse_response' do
     it 'should parse JSON and return data' do
       response = RestClient::Response.new('{"success": true, "message": "Test"}')
+      response.instance_eval { @code = 200 }
+
       expect(subject.instance_eval { parse_response(response) }).to eq('success' => true, 'message' => 'Test')
+    end
+
+    it 'should raise UnexpectedResponseError on non 200 HTTP status' do
+      response = RestClient::Response.new('does not matter')
+      response.instance_eval { @code = 401 }
+
+      expect { subject.instance_eval { parse_response(response) } }
+        .to raise_error(Heatapp::UnexpectedResponseError, /status not 200/)
     end
 
     it 'should raise UnexpectedResponseError on invalid JSON' do
       response = RestClient::Response.new('{"invalid",,}')
-      expect { subject.instance_eval { parse_response(response) } }.to raise_error(Heatapp::UnexpectedResponseError)
+      response.instance_eval { @code = 200 }
+
+      expect { subject.instance_eval { parse_response(response) } }
+        .to raise_error(Heatapp::UnexpectedResponseError, /JSON error/)
     end
   end
 
@@ -131,11 +144,11 @@ describe Heatapp::Api do
 
   describe '.request_response_to_challenge' do
     it 'should fail when the token is unknown' do
-      expect {
+      expect do
         subject.instance_eval do
           request_response_to_challenge('username', 'password', 'Test', '5105eb3fb76282a5255fb31dd5af6968')
         end
-      }.to raise_error(Heatapp::LoginFailedError)
+      end.to raise_error(Heatapp::LoginFailedError)
     end
 
     it 'when the request is successful' do

@@ -47,7 +47,7 @@ api = Heatapp::Api.new('heatapp.localdomain', session: session)
 
 api.login('username', 'Passw0rd') unless api.logged_in?
 
-api.post_authenticated(path: '/api/systemstate', payload: { 'product': 'heatapp-server'}) do |response|
+api.post_authenticated(path: '/api/systemstate', payload: { product: 'heatapp-server'}) do |response|
   puts response.code
   puts response.body
 end
