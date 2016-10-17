@@ -85,8 +85,8 @@ describe Heatapp::Session do
 
     it 'should be valid after setting values' do
       subject.devicetoken = 'TEST'
+      subject.userid = 2
       subject.udid
-      subject.reqcount_next
 
       expect(subject.valid?).to be(true)
     end
