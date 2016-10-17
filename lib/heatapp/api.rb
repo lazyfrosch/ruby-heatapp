@@ -125,7 +125,8 @@ module Heatapp
         udid:       session.udid
       }
 
-      post(path: '/api/user/token/response', payload: response_payload) do |response, json = parse_response(response)|
+      post(path: '/api/user/token/response', payload: response_payload) do |response|
+        json = parse_response(response)
         raise LoginFailedError, "Login failed: #{json['message']}" unless json['success']
         unless json['devicetoken_encrypted'] && json['userid']
           raise UnexpectedResponseError, 'Does not contain devicetoken_encrypted or userid'
