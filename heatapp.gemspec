@@ -15,8 +15,6 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/lazyfrosch/ruby-heatapp'
   spec.license       = 'GPL-2+'
 
-  spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
-
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
