@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "message": "",
+  "loginRejected": false,
+  "enabled": true,
+  "data": {
+    "boxid": "short numeric ending with 'b'",
+    "portalsignature": "BASE64 with binary data"
+  },
+  "language": "de",
+  "performance": 0.054
+}

@@ -1,0 +1,29 @@
+{
+  "success": true,
+  "message": "",
+  "loginRejected": false,
+  "devices": [{
+    "id": 13,
+    "login": "john",
+    "devicename": "Tablet",
+    "userid": 2,
+    "udid": "HEXUUID",
+    "created": "2016-09-19 17:25:49"
+  }, {
+    "id": 15,
+    "login": "jane",
+    "devicename": "Smartphone",
+    "userid": 3,
+    "udid": "HEXUUID",
+    "created": "2016-09-28 18:46:21"
+  }, {
+    "id": 16,
+    "login": "admin",
+    "devicename": "Smartphone",
+    "userid": 1,
+    "udid": "HEXUUID",
+    "created": "2016-10-02 16:13:30"
+  }],
+  "language": "de",
+  "performance": 0.254
+}

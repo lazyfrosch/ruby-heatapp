@@ -1,0 +1,86 @@
+{
+  "success": true,
+  "message": "",
+  "loginRejected": false,
+  "groups": [
+    {
+      "groupid": 1,
+      "name": "ground floor",
+      "rooms": [
+        {
+          "id": 1,
+          "appid": "01010002",
+          "actualTemperature": 21,
+          "isComfortMode": false,
+          "desiredTemperature": 21,
+          "roomstatus": 121,
+          "desiredTempDay": 21,
+          "desiredTempDay2": 20,
+          "desiredTempNight": 18,
+          "scheduleTempMin": 16,
+          "scheduleTempMax": 28,
+          "minTemperature": 18,
+          "maxTemperature": 28,
+          "imagepath": "/assets/images/room/default.png",
+          "name": "living room",
+          "orderindex": 1,
+          "originalName": "living room",
+          "status": "ok",
+          "groupid": 1
+        },
+        {
+          "id": 2,
+          "appid": "01020002",
+          "actualTemperature": 20.5,
+          "isComfortMode": false,
+          "desiredTemperature": 20.5,
+          "roomstatus": 134,
+          "desiredTempDay": 22,
+          "desiredTempDay2": 20.5,
+          "desiredTempNight": 18,
+          "scheduleTempMin": 16,
+          "scheduleTempMax": 28,
+          "minTemperature": 18,
+          "maxTemperature": 28,
+          "imagepath": "/assets/images/room/default.png",
+          "name": "bedroom",
+          "orderindex": 2,
+          "originalName": "bedroom",
+          "status": "ok",
+          "groupid": 1
+        }
+      ],
+      "orderindex": 1
+    },
+    {
+      "groupid": 2,
+      "name": "upper floor",
+      "rooms": [
+        {
+          "id": 6,
+          "appid": "01060002",
+          "actualTemperature": 22,
+          "isComfortMode": false,
+          "desiredTemperature": 22,
+          "roomstatus": 121,
+          "desiredTempDay": 22,
+          "desiredTempDay2": 20,
+          "desiredTempNight": 18,
+          "scheduleTempMin": 16,
+          "scheduleTempMax": 28,
+          "minTemperature": 18,
+          "maxTemperature": 28,
+          "imagepath": "/assets/images/room/default.png",
+          "name": "bedroom kids",
+          "orderindex": 0,
+          "originalName": "bedroom kids",
+          "status": "ok",
+          "groupid": 2
+        }
+      ],
+      "orderindex": 1
+    }
+  ],
+  "language": "en",
+  "performance": 0.261
+}

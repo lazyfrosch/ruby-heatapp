@@ -1,0 +1,15 @@
+{
+  "success": true,
+  "message": "",
+  "loginRejected": false,
+  "isConfigured": true,
+  "systemId": "numeric id ending in 'b'",
+  "featuregroups": {
+    "availableFeaturesets": ["responsive", "passwordencryption", "standby"],
+    "requiredFeaturesets": []
+  },
+  "baseUpdateVersion": false,
+  "gatewayUpdateVersion": false,
+  "language": "de",
+  "performance": 0.016
+}

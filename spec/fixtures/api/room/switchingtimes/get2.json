@@ -1,0 +1,71 @@
+{
+  "success": true,
+  "message": "",
+  "loginRejected": false,
+  "switchingtimes": [{
+    "from": "08:00",
+    "to": "14:00",
+    "type": "L"
+  }, {
+    "from": "14:00",
+    "to": "22:00",
+    "type": "H"
+  },
+    null, {
+      "from": "08:00",
+      "to": "14:00",
+      "type": "L"
+    }, {
+      "from": "14:00",
+      "to": "22:00",
+      "type": "H"
+    },
+    null, {
+      "from": "08:00",
+      "to": "14:00",
+      "type": "L"
+    }, {
+      "from": "14:00",
+      "to": "22:00",
+      "type": "H"
+    },
+    null, {
+      "from": "08:00",
+      "to": "14:00",
+      "type": "L"
+    }, {
+      "from": "14:00",
+      "to": "22:00",
+      "type": "H"
+    },
+    null, {
+      "from": "08:00",
+      "to": "14:00",
+      "type": "L"
+    }, {
+      "from": "14:00",
+      "to": "22:00",
+      "type": "H"
+    },
+    null, {
+      "from": "08:00",
+      "to": "12:00",
+      "type": "L"
+    }, {
+      "from": "12:00",
+      "to": "22:00",
+      "type": "H"
+    },
+    null, {
+      "from": "08:00",
+      "to": "12:00",
+      "type": "L"
+    }, {
+      "from": "12:00",
+      "to": "22:00",
+      "type": "H"
+    },
+    null],
+  "language": "de",
+  "performance": 0.246
+}

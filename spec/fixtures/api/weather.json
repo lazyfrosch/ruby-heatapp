@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "message": "",
+  "loginRejected": false,
+  "min": 7,
+  "max": 11,
+  "temperature": 9,
+  "iconUrl": "/assets/images/weather/flat_white/sun-cloud.png",
+  "forlocation": "City",
+  "language": "de",
+  "performance": 0.028
+}

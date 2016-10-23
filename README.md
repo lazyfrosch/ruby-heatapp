@@ -55,6 +55,22 @@ end
 session.save(file)
 ```
 
+## Interesting API targets
+
+Here are a few interesting API targets to play with.
+
+* `/api/systemstate`
+* `/api/weather`
+* `/api/room/list`
+* `/api/scene/status`
+* `/api/user/list`
+* `/api/user/datetime`
+
+For a full list, including POST parameter examples, see my anonymized examples in [spec/fixtures/](spec/fixtures/<url>).
+
+* `<path>.json` is the result of an request
+* `<path>.post` contains the POST data (uriencoded), excluding session parameters which would be added by `Heatapp::Api`
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/lazyfrosch/ruby-heatapp.
